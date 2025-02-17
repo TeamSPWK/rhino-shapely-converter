@@ -14,7 +14,7 @@ def rhino_geometry_to_shapely_geometry(geometry: r3d.GeometryBase) -> sgeom.base
     # PointCloud
     elif isinstance(geometry, r3d.PointCloud):
         return sgeom.MultiPoint(
-            list(map(lambda point: (point.X, point.Y, point.Z), geometry.Points))
+            list(map(lambda point: (point.X, point.Y, point.Z), geometry.GetPoints()))
         )
     # Line
     elif isinstance(geometry, r3d.Line):
