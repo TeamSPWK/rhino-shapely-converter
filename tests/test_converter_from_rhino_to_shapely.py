@@ -16,16 +16,21 @@ from rhino_shapely_converter.from_rhino_to_shapely import (
 def test_rhino_point_to_shapely_point(x, y, z):
     # Create rhino point
     rhino_point3d = r3d.Point3d(x, y, z)
+    rhino_point2d = r3d.Point2d(x, y)
     rhino_point = r3d.Point(rhino_point3d)
 
     # Convert to shapely
     shapely_point_from_point3d = convert_rhino_geometry_to_shapely_geometry(
         rhino_point3d
     )
+    shapely_point_from_point2d = convert_rhino_geometry_to_shapely_geometry(
+        rhino_point2d
+    )
     shapely_point_from_point = convert_rhino_geometry_to_shapely_geometry(rhino_point)
 
     # Check if those are the same
     assert shapely_point_from_point3d == sgeom.Point(x, y, z)
+    assert shapely_point_from_point2d == sgeom.Point(x, y)
     assert shapely_point_from_point == sgeom.Point(x, y, z)
 
 

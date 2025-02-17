@@ -7,17 +7,22 @@ except ImportError:
     import rhino3dm as r3d
 
 
-def shapely_point_to_rhino_point3d(shapely_point: sgeom.Point):
-    return r3d.Point3d(shapely_point.x, shapely_point.y, shapely_point.z)
+def shapely_point_to_rhino_point3d(shapely_point: sgeom.Point) -> r3d.Point3d:
+    if shapely_point.has_z:
+        return r3d.Point3d(shapely_point.x, shapely_point.y, shapely_point.z)
+    else:
+        return r3d.Point3d(shapely_point.x, shapely_point.y, 0)
 
 
-def shapely_multi_point_to_rhino_point_cloud(shapely_multi_point: sgeom.MultiPoint):
+def shapely_multi_point_to_rhino_point_cloud(
+    shapely_multi_point: sgeom.MultiPoint,
+) -> r3d.PointCloud:
     return r3d.PointCloud(
         list(map(shapely_point_to_rhino_point3d, shapely_multi_point.geoms))
     )
 
 
-def shapely_line_to_rhino_polyline(shapely_line: sgeom.LineString):
+def shapely_line_to_rhino_polyline(shapely_line: sgeom.LineString) -> r3d.Polyline:
     points = [sgeom.Point(coord) for coord in shapely_line.coords]
     return r3d.Polyline(list(map(shapely_point_to_rhino_point3d, points)))
 
@@ -32,4 +37,11 @@ def convert_shapely_geometry_to_rhino_geometry(
     elif isinstance(shapely_geometry, sgeom.LineString):
         return shapely_line_to_rhino_polyline(shapely_geometry)
     else:
-        raise ValueError(f"Unsupported shapely geometry type: {type(shapely_geometry)}")
+        raise ValueError(
+            f"""Supported shapely geometry types:
+            - Point
+            - MultiPoint
+            - LineString
+            Unsupported shapely geometry type: {type(shapely_geometry)}.
+            """
+        )

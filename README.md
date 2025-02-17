@@ -8,6 +8,8 @@ This is to convert rhino geometry to shapely geometry and vice versa.
 pip install rhino-shapely-converter
 ```
 
+
+
 ## Important Notes
 
 - Shapely is not an appropriate library for 3d calculations.
@@ -16,6 +18,7 @@ pip install rhino-shapely-converter
 ## Notes
 
 - Rhino Point3d will be converted to Shapely Point.
+- Rhino Point2d will be converted to Shapely Point.
 - Rhino Point will be converted to Shapely Point.
 - Rhino PointCloud will be converted to Shapely MultiPoint.
 - Rhino Line will be converted to Shapely LineString.
