@@ -15,7 +15,8 @@ def convert_rhino_geometry_to_shapely_geometry(
         return sgeom.Point(
             geometry.Location.X, geometry.Location.Y, geometry.Location.Z
         )
-
+    elif isinstance(geometry, r3d.Point2d):
+        return sgeom.Point(geometry.X, geometry.Y)
     elif isinstance(geometry, r3d.Point3d):
         return sgeom.Point(geometry.X, geometry.Y, geometry.Z)
     # PointCloud
@@ -44,4 +45,15 @@ def convert_rhino_geometry_to_shapely_geometry(
         )
 
     else:
-        raise ValueError(f"Unsupported geometry type: {type(geometry)}")
+        raise ValueError(
+            f"""Supported geometry types:
+            - Point
+            - Point2d
+            - Point3d
+            - PointCloud
+            - Line
+            - Polyline
+            - PolylineCurve
+            Unsupported geometry type: {type(geometry)}.
+            """
+        )
