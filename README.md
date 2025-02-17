@@ -29,11 +29,11 @@ pip install rhino-shapely-converter
 ## Usage
 
 ```python
+# please check current possible types to convert above
 from rhino_shapely_converter import (
     convert_rhino_geometry_to_shapely_geometry,
     convert_shapely_geometry_to_rhino_geometry,
 )
-# please check current possible types to convert above
 
 # Convert rhino geometry to shapely geometry
 shapely_geometry = convert_rhino_geometry_to_shapely_geometry(rhino_geometry)
