@@ -3,7 +3,7 @@ import pytest
 import rhino3dm as r3d
 import shapely.geometry as sgeom
 
-from src.rhino_shapely_converter.convert_from_rhino_to_shapely import (
+from rhino_shapely_converter.convert_from_rhino_to_shapely import (
     rhino_geometry_to_shapely_geometry,
 )
 
