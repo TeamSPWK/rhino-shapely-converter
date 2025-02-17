@@ -32,4 +32,11 @@ def convert_shapely_geometry_to_rhino_geometry(
     elif isinstance(shapely_geometry, sgeom.LineString):
         return shapely_line_to_rhino_polyline(shapely_geometry)
     else:
-        raise ValueError(f"Unsupported shapely geometry type: {type(shapely_geometry)}")
+        raise ValueError(
+            f"""Supported shapely geometry types:
+            - Point
+            - MultiPoint
+            - LineString
+            Unsupported shapely geometry type: {type(shapely_geometry)}.
+            """
+        )
