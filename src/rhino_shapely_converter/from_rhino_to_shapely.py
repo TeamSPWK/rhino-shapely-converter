@@ -2,25 +2,36 @@ import rhino3dm as r3d
 
 import shapely.geometry as sgeom
 
+SUPPORTED_GEOMETRY_TYPES = (
+    "Point",
+    "Point3d",
+    "PointCloud",
+    "Line",
+    "Polyline",
+    "PolylineCurve",
+)
+
 
 def convert_rhino_geometry_to_shapely_geometry(
     geometry: r3d.GeometryBase,
 ) -> sgeom.base.BaseGeometry:
+    type_name = type(geometry).__name__
+
     # Point
-    if isinstance(geometry, r3d.Point):
+    if type_name == "Point":
         return sgeom.Point(
             geometry.Location.X, geometry.Location.Y, geometry.Location.Z
         )
 
-    elif isinstance(geometry, r3d.Point3d):
+    elif type_name == "Point3d":
         return sgeom.Point(geometry.X, geometry.Y, geometry.Z)
     # PointCloud
-    elif isinstance(geometry, r3d.PointCloud):
+    elif type_name == "PointCloud":
         return sgeom.MultiPoint(
             list(map(lambda point: (point.X, point.Y, point.Z), geometry.GetPoints()))
         )
     # Line
-    elif isinstance(geometry, r3d.Line):
+    elif type_name == "Line":
         return sgeom.LineString(
             [
                 (geometry.PointAt(0).X, geometry.PointAt(0).Y, geometry.PointAt(0).Z),
@@ -28,16 +39,20 @@ def convert_rhino_geometry_to_shapely_geometry(
             ]
         )
     # Polyline
-    elif isinstance(geometry, r3d.Polyline):
+    elif type_name == "Polyline":
         points = [geometry.PointAt(i) for i in range(geometry.Count)]
         return sgeom.LineString(
             list(map(lambda point: (point.X, point.Y, point.Z), points))
         )
-    elif isinstance(geometry, r3d.PolylineCurve):
+    elif type_name == "PolylineCurve":
         points = [geometry.PointAt(i) for i in range(geometry.PointCount)]
         return sgeom.LineString(
             list(map(lambda point: (point.X, point.Y, point.Z), points))
         )
 
     else:
-        raise ValueError(f"Unsupported geometry type: {type(geometry)}")
+        raise ValueError(
+            f"""Supported geometry types: {SUPPORTED_GEOMETRY_TYPES}.
+            Unsupported geometry type: {type(geometry)}.
+            """
+        )
