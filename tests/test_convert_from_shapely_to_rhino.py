@@ -1,22 +1,20 @@
-
 import rhino3dm as r3d
 import shapely.geometry as sgeom
 
 from rhino_shapely_converter.convert_from_shapely_to_rhino import (
-    shapely_point_to_rhino_point3d,
-    shapely_multi_point_to_rhino_point_cloud,
-    shapely_line_to_rhino_polyline,
+    convert_shapely_geometry_to_rhino_geometry,
 )
+
 
 def test_shapely_point_to_rhino_point3d():
     shapely_point = sgeom.Point(1, 2, 3)
-    rhino_point3d = shapely_point_to_rhino_point3d(shapely_point)
+    rhino_point3d = convert_shapely_geometry_to_rhino_geometry(shapely_point)
     assert rhino_point3d == r3d.Point3d(1, 2, 3)
 
 
 def test_shapely_point_cloud_to_rhino_point_cloud():
     shapely_point_cloud = sgeom.MultiPoint([(1, 2, 3), (4, 5, 6), (7, 8, 9)])
-    rhino_point_cloud = shapely_multi_point_to_rhino_point_cloud(shapely_point_cloud)
+    rhino_point_cloud = convert_shapely_geometry_to_rhino_geometry(shapely_point_cloud)
     expected_rhino_point_cloud = r3d.PointCloud(
         [r3d.Point3d(1, 2, 3), r3d.Point3d(4, 5, 6), r3d.Point3d(7, 8, 9)]
     )
@@ -30,7 +28,7 @@ def test_shapely_point_cloud_to_rhino_point_cloud():
 
 def test_shapely_line_to_rhino_polyline():
     shapely_line = sgeom.LineString([(1, 2, 3), (4, 5, 6), (7, 8, 9)])
-    rhino_polyline = shapely_line_to_rhino_polyline(shapely_line)
+    rhino_polyline = convert_shapely_geometry_to_rhino_geometry(shapely_line)
     expected_rhino_polyline = r3d.Polyline(
         [r3d.Point3d(1, 2, 3), r3d.Point3d(4, 5, 6), r3d.Point3d(7, 8, 9)]
     )
