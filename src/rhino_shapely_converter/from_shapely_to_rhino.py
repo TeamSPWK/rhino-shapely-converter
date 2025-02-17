@@ -1,5 +1,9 @@
 import shapely.geometry as sgeom
-import rhino3dm as r3d
+try:
+    # For Rhino
+    import Rhino.Geometry as r3d
+except ImportError:
+    import rhino3dm as r3d
 
 
 def shapely_point_to_rhino_point3d(shapely_point: sgeom.Point):

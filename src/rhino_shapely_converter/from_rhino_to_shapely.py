@@ -1,6 +1,10 @@
-import rhino3dm as r3d
-
 import shapely.geometry as sgeom
+try:
+    # For Rhino
+    import Rhino.Geometry as r3d
+except ImportError:
+    import rhino3dm as r3d
+
 
 SUPPORTED_GEOMETRY_TYPES = (
     "Point",
