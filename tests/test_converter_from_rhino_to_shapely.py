@@ -3,7 +3,7 @@ import pytest
 import rhino3dm as r3d
 import shapely.geometry as sgeom
 
-from src.rhino_shapely_converter.converter import rhino_geometry_to_shapely_geometry
+from src.rhino_shapely_converter.convert_from_rhino_to_shapely import rhino_geometry_to_shapely_geometry
 
 
 @pytest.mark.parametrize("x, y, z", [(1, 2, 3), (4, 5, 6), (7, 8, 9)])
@@ -44,3 +44,17 @@ def test_rhino_line_to_shapely_line():
 
     # Check if those are the same
     assert shapely_line == sgeom.LineString([(1, 2, 3), (4, 5, 6)])
+
+
+def test_rhino_polyline_to_shapely_line():
+    # Create rhino polyline
+    rhino_polyline = r3d.Polyline()
+    rhino_polyline.Add(1, 2, 3)
+    rhino_polyline.Add(4, 5, 6)
+    rhino_polyline.Add(7, 8, 9)
+
+    # Convert to shapely
+    shapely_polyline = rhino_geometry_to_shapely_geometry(rhino_polyline)
+
+    # Check if those are the same
+    assert shapely_polyline == sgeom.LineString([(1, 2, 3), (4, 5, 6), (7, 8, 9)])

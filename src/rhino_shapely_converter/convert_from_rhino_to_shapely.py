@@ -11,6 +11,7 @@ def rhino_geometry_to_shapely_geometry(
         return sgeom.Point(
             geometry.Location.X, geometry.Location.Y, geometry.Location.Z
         )
+
     elif isinstance(geometry, r3d.Point3d):
         return sgeom.Point(geometry.X, geometry.Y, geometry.Z)
     # PointCloud
@@ -28,14 +29,25 @@ def rhino_geometry_to_shapely_geometry(
         )
     # Polyline
     elif isinstance(geometry, r3d.Polyline):
+        polyline_curve = geometry.ToPolylineCurve()
         return sgeom.LineString(
-            list(map(lambda point: (point.X, point.Y, point.Z), geometry.Points))
+            list(map(lambda point: (point.X, point.Y, point.Z), polyline_curve.Points))
         )
     elif isinstance(geometry, r3d.PolylineCurve):
         return sgeom.LineString(
-            list(map(lambda point: (point.X, point.Y, point.Z), geometry.Points))
+            list(map(lambda point: (point.X, point.Y, point.Z), geometry.GetPoints()))
         )
 
+    elif isinstance(geometry, r3d.Surface):
+        return sgeom.MultiPolygon(
+            list(
+                map(lambda face: sgeom.Polygon(
+                    list(map(lambda point: (point.X, point.Y, point.Z), face.Points))
+                ),
+                geometry.Faces,
+                )
+            )
+        )
     # Brep
     elif isinstance(geometry, r3d.Brep):
         return sgeom.MultiPolygon(
