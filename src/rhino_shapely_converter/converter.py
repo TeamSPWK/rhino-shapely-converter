@@ -8,9 +8,9 @@ def rhino_geometry_to_shapely_geometry(
 ) -> sgeom.base.BaseGeometry:
     # Point
     if isinstance(geometry, r3d.Point):
-        return sgeom.Point(geometry.X, geometry.Y, geometry.Z)
-    elif isinstance(geometry, r3d.Point3d):
-        return sgeom.Point(geometry.X, geometry.Y, geometry.Z)
+        return sgeom.Point(
+            geometry.Location.X, geometry.Location.Y, geometry.Location.Z
+        )
     elif isinstance(geometry, r3d.Point3d):
         return sgeom.Point(geometry.X, geometry.Y, geometry.Z)
     # PointCloud
@@ -22,8 +22,8 @@ def rhino_geometry_to_shapely_geometry(
     elif isinstance(geometry, r3d.Line):
         return sgeom.LineString(
             [
-                (geometry.Point1.X, geometry.Point1.Y, geometry.Point1.Z),
-                (geometry.Point2.X, geometry.Point2.Y, geometry.Point2.Z),
+                (geometry.PointAt(0).X, geometry.PointAt(0).Y, geometry.PointAt(0).Z),
+                (geometry.PointAt(1).X, geometry.PointAt(1).Y, geometry.PointAt(1).Z),
             ]
         )
     # Polyline
