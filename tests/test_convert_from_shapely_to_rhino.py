@@ -1,4 +1,5 @@
 import shapely.geometry as sgeom
+
 try:
     # For Rhino
     import Rhino.Geometry as r3d
