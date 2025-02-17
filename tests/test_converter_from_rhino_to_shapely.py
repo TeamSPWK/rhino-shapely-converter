@@ -1,6 +1,10 @@
 import pytest
 
-import rhino3dm as r3d
+try:
+    # For Rhino
+    import Rhino.Geometry as r3d
+except ImportError:
+    import rhino3dm as r3d
 import shapely.geometry as sgeom
 
 from rhino_shapely_converter.from_rhino_to_shapely import (
