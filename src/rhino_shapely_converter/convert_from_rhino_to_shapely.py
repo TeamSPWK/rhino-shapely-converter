@@ -39,34 +39,5 @@ def rhino_geometry_to_shapely_geometry(
             list(map(lambda point: (point.X, point.Y, point.Z), points))
         )
 
-    # Surface
-    elif isinstance(geometry, r3d.Surface):
-        return sgeom.MultiPolygon(
-            list(
-                map(
-                    lambda face: sgeom.Polygon(
-                        list(
-                            map(lambda point: (point.X, point.Y, point.Z), face.Points)
-                        )
-                    ),
-                    geometry.Faces,
-                )
-            )
-        )
-    # Brep
-    elif isinstance(geometry, r3d.Brep):
-        return sgeom.MultiPolygon(
-            list(
-                map(
-                    lambda face: sgeom.Polygon(
-                        list(
-                            map(lambda point: (point.X, point.Y, point.Z), face.Points)
-                        )
-                    ),
-                    geometry.Faces,
-                )
-            )
-        )
-
     else:
         raise ValueError(f"Unsupported geometry type: {type(geometry)}")

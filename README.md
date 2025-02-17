@@ -20,7 +20,6 @@ pip install rhino-shapely-converter
 - Rhino PointCloud will be converted to Shapely MultiPoint.
 - Rhino Line will be converted to Shapely LineString.
 - Rhino Polyline will be converted to Shapely LineString.
-- Rhino Brep will be converted to Shapely MultiPolygon.
 
 ## Usage
 
