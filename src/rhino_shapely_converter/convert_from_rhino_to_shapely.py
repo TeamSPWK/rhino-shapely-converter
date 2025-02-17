@@ -29,9 +29,9 @@ def rhino_geometry_to_shapely_geometry(
         )
     # Polyline
     elif isinstance(geometry, r3d.Polyline):
-        polyline_curve = geometry.ToPolylineCurve()
+        points = [geometry.PointAt(i) for i in range(geometry.Count)]
         return sgeom.LineString(
-            list(map(lambda point: (point.X, point.Y, point.Z), polyline_curve.Points))
+            list(map(lambda point: (point.X, point.Y, point.Z), points))
         )
     elif isinstance(geometry, r3d.PolylineCurve):
         return sgeom.LineString(
