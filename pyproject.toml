@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "rhino-shapely-converter"
-version = "0.1.0"
+version = "0.1.1"
 description = "This is to convert rhino geometry to shapely geometry and vice versa"
 readme = "README.md"
 authors = ["aa <aa@spacewalk.tech>"]
