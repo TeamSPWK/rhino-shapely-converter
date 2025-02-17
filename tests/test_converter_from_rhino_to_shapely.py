@@ -60,3 +60,20 @@ def test_rhino_polyline_to_shapely_line():
 
     # Check if those are the same
     assert shapely_polyline == sgeom.LineString([(1, 2, 3), (4, 5, 6), (7, 8, 9)])
+
+
+def test_rhino_polyline_curve_to_shapely_line():
+    # Create rhino polyline curve
+    rhino_polyline_curve = r3d.PolylineCurve(
+        [
+            r3d.Point3d(1, 2, 3),
+            r3d.Point3d(4, 5, 6),
+            r3d.Point3d(7, 8, 9),
+        ]
+    )
+
+    # Convert to shapely
+    shapely_polyline_curve = rhino_geometry_to_shapely_geometry(rhino_polyline_curve)
+
+    # Check if those are the same
+    assert shapely_polyline_curve == sgeom.LineString([(1, 2, 3), (4, 5, 6), (7, 8, 9)])

@@ -34,10 +34,12 @@ def rhino_geometry_to_shapely_geometry(
             list(map(lambda point: (point.X, point.Y, point.Z), points))
         )
     elif isinstance(geometry, r3d.PolylineCurve):
+        points = [geometry.PointAt(i) for i in range(geometry.PointCount)]
         return sgeom.LineString(
-            list(map(lambda point: (point.X, point.Y, point.Z), geometry.GetPoints()))
+            list(map(lambda point: (point.X, point.Y, point.Z), points))
         )
 
+    # Surface
     elif isinstance(geometry, r3d.Surface):
         return sgeom.MultiPolygon(
             list(
