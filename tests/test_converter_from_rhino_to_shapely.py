@@ -3,7 +3,9 @@ import pytest
 import rhino3dm as r3d
 import shapely.geometry as sgeom
 
-from src.rhino_shapely_converter.convert_from_rhino_to_shapely import rhino_geometry_to_shapely_geometry
+from src.rhino_shapely_converter.convert_from_rhino_to_shapely import (
+    rhino_geometry_to_shapely_geometry,
+)
 
 
 @pytest.mark.parametrize("x, y, z", [(1, 2, 3), (4, 5, 6), (7, 8, 9)])

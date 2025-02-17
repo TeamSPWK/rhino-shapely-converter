@@ -41,10 +41,13 @@ def rhino_geometry_to_shapely_geometry(
     elif isinstance(geometry, r3d.Surface):
         return sgeom.MultiPolygon(
             list(
-                map(lambda face: sgeom.Polygon(
-                    list(map(lambda point: (point.X, point.Y, point.Z), face.Points))
-                ),
-                geometry.Faces,
+                map(
+                    lambda face: sgeom.Polygon(
+                        list(
+                            map(lambda point: (point.X, point.Y, point.Z), face.Points)
+                        )
+                    ),
+                    geometry.Faces,
                 )
             )
         )
