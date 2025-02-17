@@ -5,6 +5,7 @@ import shapely.geometry as sgeom
 
 from src.rhino_shapely_converter.converter import rhino_geometry_to_shapely_geometry
 
+
 @pytest.mark.parametrize("x, y, z", [(1, 2, 3), (4, 5, 6), (7, 8, 9)])
 def test_rhino_point_to_shapely_point(x, y, z):
     # Create rhino point
@@ -15,6 +16,7 @@ def test_rhino_point_to_shapely_point(x, y, z):
 
     # Check if those are the same
     assert shapely_point == sgeom.Point(x, y, z)
+
 
 def test_rhino_point_cloud_to_shapely_point_cloud():
     # Create rhino point cloud
