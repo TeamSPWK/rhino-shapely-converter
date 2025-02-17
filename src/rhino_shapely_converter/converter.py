@@ -50,5 +50,6 @@ def rhino_geometry_to_shapely_geometry(
                 )
             )
         )
+
     else:
         raise ValueError(f"Unsupported geometry type: {type(geometry)}")
