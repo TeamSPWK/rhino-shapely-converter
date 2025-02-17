@@ -1,7 +1,7 @@
 import rhino3dm as r3d
 import shapely.geometry as sgeom
 
-from rhino_shapely_converter.convert_from_shapely_to_rhino import (
+from rhino_shapely_converter.from_shapely_to_rhino import (
     convert_shapely_geometry_to_rhino_geometry,
 )
 

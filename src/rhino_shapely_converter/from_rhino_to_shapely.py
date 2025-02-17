@@ -3,7 +3,7 @@ import rhino3dm as r3d
 import shapely.geometry as sgeom
 
 
-def rhino_geometry_to_shapely_geometry(
+def convert_rhino_geometry_to_shapely_geometry(
     geometry: r3d.GeometryBase,
 ) -> sgeom.base.BaseGeometry:
     # Point
